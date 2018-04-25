@@ -1,5 +1,5 @@
 ---
-title: "The Efficacy of League Formats in Ranking Teams"
+title: "[The Efficacy of League Formats in Ranking Teams](https://github.com/janekl/league-formats-efficacy)"
 subtitle: "Appendix: League Formats in UEFA"
 author: "Jan Lasek and Marek Gagolewski"
 header-includes:
