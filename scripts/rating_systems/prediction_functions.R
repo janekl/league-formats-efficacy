@@ -26,24 +26,16 @@ read_data2 <- function(dataset, train_frac = 0.4, directory = file.path('..', '.
 }
 
 get_parameter_grid_for_league <- function(league, models, lambda_min = 0, lambda_max = 50) {
-  # There are some grids found to cover optimal parameters for a number of leagues. For POL, GER and SCO
-  # they were found, otherwise we set some default grid.
-  param_grids <- NULL
-  if(is.null(param_grids))
-    param_grids <- list(
-      "estimate_olr_model_regularized" = data.frame("lambda" = seq(0.5, lambda_max, by = 0.5)),
-      "estimate_olr_model_unconstrained_regularized" = data.frame("lambda" = seq(lambda_min, lambda_max, by = 0.5)),
-      "estimate_poisson_regularized" = data.frame("lambda" = seq(0, lambda_max, by = 0.5)),
-      "estimate_poisson_unconstrained_regularized" = data.frame("lambda" = seq(lambda_min, lambda_max, by = 0.5)),
-      "estimate_poisson_regularized_prime" = expand.grid("lambda" = seq(lambda_min, lambda_max, by = 0.5), "corr" = seq(0.1, 0.9, by = 0.1)),
-      "estimate_poisson_unconstrained_regularized_prime" = expand.grid("lambda" = seq(lambda_min, lambda_max, by = 0.5), "corr" = 0.45), # "corr" = c(0.0, 0.01, seq(0.05, 0.95, by = 0.05), 0.99)),
-      "estimate_poisson_DC_regularized" = data.frame("lambda" = seq(10, lambda_max, by = 0.5)),
-      "estimate_poisson_DC_regularized_prime" = expand.grid("lambda" = seq(8, lambda_max, by = 0.5), "corr" = seq(0.1, 0.9, by = 0.1)))
+  param_grids <- list(
+    "estimate_olr_regularized" = data.frame("lambda" = seq(lambda_min, lambda_max, by = 0.5)),
+    "estimate_poisson_regularized" = data.frame("lambda" = seq(lambda_min, lambda_max, by = 0.5)),
+    "estimate_poisson_correlated_regularized" = expand.grid("lambda" = seq(lambda_min, lambda_max, by = 0.5), "corr" = 0.45) # "corr" = c(0.0, 0.01, seq(0.05, 0.95, by = 0.05), 0.99)),
+  )
   for(model in names(param_grids)) {
     if(!(model %in% models))
       param_grids[[model]] <- NULL # Removes from list
   }
-  #stopifnot(!is.null(param_grids))
+  stopifnot(all(models %in% names(param_grids)))
   return(param_grids)
 }
 

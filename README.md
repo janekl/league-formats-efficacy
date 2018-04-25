@@ -33,9 +33,9 @@ MatchPrediction
      ├── extra_functions.R
      ├── evaluate_simulations.R
      └── rating_systems
-           ├── rating_systems.R
-           ├── prediction_functions.R
-           └── optimise_models.R
+          ├── rating_systems.R
+          ├── prediction_functions.R
+          └── optimise_models.R
 ```
 
 ### Requirements
