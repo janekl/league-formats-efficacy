@@ -159,7 +159,7 @@ Click to download:
 
 ### Schedules in Two Stage Systems
 
-Two example schedules of the final round in the $`2RR + (1RR/1RR)`$ league format
+Two example schedules of the final round in the *2RR + (1RR/1RR)* league format
 employed in the championship and the relegation group in the case of 12 and 16
 teams are listed in the third appendix.
 
