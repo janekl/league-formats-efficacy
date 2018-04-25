@@ -1,205 +1,158 @@
-# The efficacy of league formats in ranking teams
+# The Efficacy of League Formats in Ranking Teams
 
-This repository contains the code used for analysis in the paper "The efficacy of league formats in ranking teams" (submitted for the special isssue on sports analytics to Statistical Modelling Journal). 
-The efficacy is meant as the accuracy of a given league format to reproduce the true ranking of competing teams.
-The content of the repository, steps to reproduce the main results and supplementary materials are outlined below.
+This repository contains the code used for the analysis of football data
+in the paper *The efficacy of league formats in ranking teams*
+(submitted to the special issue on sports analytics in
+*Statistical Modelling Journal*) by [Jan Lasek](http://lasek.rexamine.com)
+and [Marek Gagolewski](http://gagolewski.com/).
+The efficacy of a given league format is understood as the accuracy to
+reproduce the true ranking of competing teams. The content of this repository,
+steps to reproduce the main results and supplementary materials are outlined below.
 
 ## Contents
 
 ```
 MatchPrediction
 ├── data
-│    ├── Poland{1415,1516}.csv - Data from http://www.90minut.pl/
-│    ├── download_data.sh - Script for downloading data from http://www.football-data.co.uk/
-│    └── preprocessing_football_data_co_uk.R - For processing raw csv from http://www.football-data.co.uk/
-├── scripts
-│    ├── config.R
-│    ├── setup_simulations.R
-│    ├── run_simulations.R
-│    ├── run_all_final_104.sh # 10^4 simulations for all settings for Poisson correlated model
-│    ├── run_all_final_105.sh # 10^5simulations for chosen (most important for analysis) settings
-│    ├── run_all_olr.sh # Simulations for OLR model
-│    ├── run_all_poisson.sh # Base Poisson model
-│    ├── run_simulations_krr.sh # Round impact in kRR tournament
-│    ├── run_simulations_scotland_points_allocation.sh # Points allocations
-│    ├── schedule_functions.R
-│    ├── simulation_functions.R
-│    ├── evaluation_functions.R
-│    ├── extra_functions.R
-│    ├── evaluate_simulations.R
-│    └── rating_systems
-│          ├── rating_systems.R
-│          ├── prediction_functions.R
-│          └── optimise_models.R
-└── results
+│    ├── Poland{1415,1516}.csv               # Data from http://www.90minut.pl/
+│    ├── download_data.sh                    # Script for downloading data from http://www.football-data.co.uk/
+│    └── preprocessing_football_data_co_uk.R # For processing raw CSV files from http://www.football-data.co.uk/
+└── scripts
+     ├── config.R
+     ├── setup_simulations.R
+     ├── run_simulations.R
+     ├── run_all_final_104.sh                # 10^4 simulations for all settings for Poisson correlated model
+     ├── run_all_final_105.sh                # 10^5 simulations for chosen (most important for analysis) settings
+     ├── run_all_olr.sh                      # Simulations for OLR model
+     ├── run_all_poisson.sh                  # Base Poisson model
+     ├── run_simulations_krr.sh              # Round impact in the kRR tournament
+     ├── run_simulations_scotland_points_allocation.sh # Points allocations
+     ├── schedule_functions.R
+     ├── simulation_functions.R
+     ├── evaluation_functions.R
+     ├── extra_functions.R
+     ├── evaluate_simulations.R
+     └── rating_systems
+           ├── rating_systems.R
+           ├── prediction_functions.R
+           └── optimise_models.R
 ```
 
 ### Requirements
 
-The project was developed in [R](https://www.r-project.org/) using the following libraries and their versions:
+The project was developed in [R](https://www.r-project.org/) using
+the following packages:
 
 * doMC_1.3.5
 * dplyr_0.5.0
 * iterators_1.0.8
-* foreach_1.4.3 
+* foreach_1.4.3
 * skellam_0.2.0
 * stringi_1.1.7
 * xtable_1.8-2
 
-Compatibility of the scripts for other versions of these packages is not guaranteed.
+Compatibility of the scripts for other versions of the aforementioned packages
+is not guaranteed.
 
-## Reproducing main results
+
+
+## Reproducing the Main Results
 
 ### Step 1
 
-First, create file **scripts/config.R** and set appropriate paths for keeping data and saving results. 
-This depends on local machine settings. File contents should look like:
+First, create file **scripts/config.R** and set appropriate paths
+for keeping data and saving the results. This depends on local platform
+settings. File contents should look like:
 
-```
-results_save_folder = "where/you/want/to/store/data/and/results"
+```R
+results_save_folder <- "where/you/want/to/store/data/and/results"
 ```
 
-All your results will be saved in **results_save_folder**. 
+All the results will be saved in **results_save_folder**.
 This is also the default path for storing data.
+
+
 
 ### Step 2
 
-Second, to install necessary libraries and setup folders to dump results run
+Second, to install necessary libraries and setup the
+output data folders, run:
 
 ```
-Rscript setup_simulations.R
+$ Rscript setup_simulations.R
 ```
 
 Additionally, you can edit the script and define the following:
 
-* the team rating model to use (`model` variable)
-* the league formats to analyse (`x` variable)
-* directory for storing results for a specific experiment (`specific_result_folder`)
+* the team rating model to use (`model` variable),
+* the league formats to analyse (`x` variable),
+* directory for storing the results of a specific experiment
+(`specific_result_folder`).
 
 
-If there are some old results stored, error will be raised ("directory not empty"). Clean them first (or move to some other location).
+An error will be raised (`directory not empty`), if there are some old
+results stored. Clean them first (or move to some other location).
+
 
 ### Step 3
 
-Third, to produce simulation results with given parameters edit script **run_all.sh** and run
+Third, to produce the simulation results with given parameters,
+edit the **run_all.sh** script and execute:
 
 ```
-./run_all.sh
+$ ./run_all.sh
 ```
 
-Alternatively, to produce results for a given setup of parameters run
+Alternatively, to produce the results for a given parameter setup, run:
 ```
-Rscript run_simulations.R --n=16 --model=poisson_correlated --n_sim=100 --shape=20 --sigma=0.3 --n_cores=3 --log2file=1
+$ Rscript run_simulations.R --n=16 --model=poisson_correlated --n_sim=100 --shape=20 --sigma=0.3 --n_cores=3 --log2file=1
 ```
 
-with appropriate parameters (please consult the script). These operations are performed for a grid of parameters in **run_all.sh** script. The results will be saved in **data** folder with appropriate paths as specified in **config.R** and **setup_simulations.R** scripts.
+with appropriate parameters (please consult the script). These operations
+are performed for a parameters grid in the **run_all.sh** script. The results
+will be saved in the **data** folder with appropriate paths as
+specified in the **config.R** and **setup_simulations.R** scripts.
 
-Results are saved to **/mnt/ml-team/experiments/Leagues** and backup is at **ml100:~/Leagues/results_backup** (29-01-2018).
+Results are saved to **/mnt/ml-team/experiments/Leagues**
+and their backup copy is at **ml100:~/Leagues/results_backup** (29-01-2018).
 
-## Reproducing intermediate results
+## Reproducing Intermediate Results
 
-### Parameter setting for the model
-This is specified in **scripts/rating_systems/parameter_setting_for_paper.sh** script. Make sure to set `\rho = 0.45` (as desired) for the correlated Poisson model in **rating_systems/prediction_functions.R** script. To reproduce results, run
+### Parameter Setting for the Model
+
+This is specified in the **scripts/rating_systems/parameter_setting_for_paper.sh**
+script. Make sure to set ρ=0.45 (or as desired) for the
+correlated Poisson model in the **rating_systems/prediction_functions.R**
+script. To reproduce results, run
+
 ```
-$parameter_setting_for_paper.sh
+$ ./parameter_setting_for_paper.sh
 ```
-in the appropriate folder. The results will be saved to **results/** folder. For a complete set of tables, parameters, results and comparison with odds, consult **prediction_results_report.R** (interactively in e.g. RStudio). You will need to transfer estimates for lambda there.
 
-## Appendix
+in the appropriate folder. The results will be saved in the **results/** folder.
+For a complete set of tables, parameters, results and a comparison
+with the odds model, consult **prediction_results_report.R**
+(interactively in, e.g., RStudio). You will need to transfer the estimates
+for the λ there.
 
-### League formats in UEFA
+## Appendices
 
-Table below presents formats that are in operation in the UEFA countries in the 2017/2018 (or 2018) season. 
-For brevity, $`kRR_{n}`$ denotes a $`k`$ round-robin tournament with $`n`$ teams involved. 
-The "$`+`$" symbol denotes that a given entity employs a two-stage format and "$`/`$"  denotes round-robin tournaments played simultaneously.
-If after the first stage the ranking table is not split equally, superscripts $`i, j`$ in $`kRR_{n}^{i-j}`$
-denotes that teams ranked from $`i`$ to $`j`$ compete in separate $`k`$ round-robin tournaments with
-$`n = j - i + 1`$ teams. Note that if this is the case, the number of rounds played by the teams may differ.
-Finally, prefix "$`\frac{1}{2}`$" denotes that the points after the first stage are divided by two and rounded when necessary.
+### League Formats in UEFA
 
-For example, the Cypriot league format is denoted with $`2RR_{14}`$ $`+`$ $`(2RR_{6}^{1-6} / 2RR_{6}^{7-12})`$.
-It means that in the first stage there are 14 teams competing in a double round-robin tournament. Next, the league table is split into two parts: 
-the first consist of the teams ranked from 1 to 6 and the second one from 7 to 12 (the last two teams are directly relegated).
-In both subgroups, another $2RR$ tournament is played (with six teams each). Hence, there are 36 rounds and $`2 \cdot {14 \choose 2} + 2 \cdot 2 \cdot {6 \choose 2} = 242`$ 
-matches are played in total.
+The first appendix consists of a listing of formats that are in
+operation in the UEFA countries in the 2017/2018 (or 2018) season.
 
-There are two countries missing in the comparison. In Liechtenstein, no domestic championship is played
-(some teams compete in Switzerland), only domestic cup is played. In San Marino, there are 15 teams 
-and league starts with two groups (7 and 8 teams each) in which $`3RR`$ is played. Following that, a double
-elimination tournament is played to determine the champion.
-
-Perhaps the most complicated league format is employed in Belgium. After the first stage
-the teams ranked 1--6 compete in the championship group. The teams ranked 7--15 are coupled
-with teams from the second division to compete for one extra spot in international cups. 
-The lowest ranked team is directly relegated. In Bulgaria and Denmark, with some modifications, 
-the league table is also split into three groups after the first stage of the competition.
-
-In certain countries (including Belgium, Bulgaria, Denmark, Iceland and the Netherlands) after a regular season, 
-an extra round of play (typically a single elimination tournament) 
-is employed in order to determine the league champion or the teams participating in the international cups competition in the season to follow.
+Click to download:
+(PDF)[Appendix_League_formats_in_UEFA.pdf] |
+(MARKDOWN)[Appendix_League_formats_in_UEFA.md]
 
 
-| Country                   |      Format                              |     Teams    |    Rounds    |    Matches   |
-|:-------------------------:|:----------------------------------------:|:------------:|:------------:|:------------:|
-| Albania                   | $`4RR_{10}`$                             | 10           | 36           | 180          |
-| Andorra                   | $`3RR_{8} + (2RR_{4} / 2RR_{4})`$        | 8            | 27           | 108          |
-| Armenia                   | $`6RR_{6}`$                              | 6            | 30           | 90           |
-| Austria                   | $`4RR_{10}`$                             | 10           | 36           | 180          |
-| Azerbaijan                | $`4RR_{8}`$                              | 8            | 28           | 112          |
-| Belarus                   | $`2RR_{16}`$                             | 16           | 30           | 240          |
-| Belgium                   | $`\frac{1}{2} \cdot 2RR_{16} + (2RR_{6}^{1-6}/2RR_{6}^{7-15}/2RR_{6}^{7-15})`$ | 16           | 40           | 330          |
-| Bosnia and Herzegovina    | $`2RR_{12} + (2RR_{6} / 2RR_{6})`$       | 12           | 32           | 192          |
-| Bulgaria                  | $`2RR_{14} + (2RR_{6}^{1-6}/2RR_{4}^{7-14}/2RR_{4}^{7-14})`$ | 14           | 36 / 32 / 32 | 236          |
-| Croatia                   | $`4RR_{10}`$                             | 10           | 36           | 180          |
-| Cyprus                    | $`2RR_{14} + (2RR_{6}^{1-6} / 2RR_{6}^{7-12})`$ | 14           | 36           | 242          |
-| Czech Republic            | $`2RR_{16}`$                             | 16           | 30           | 240          |
-| Denmark                   | $`2RR_{14} + (2RR_{6}^{1-6}/2RR_{4}^{7-14}/2RR_{4}^{7-14})`$ | 14           | 36 / 32 / 32 | 236          |
-| England                   | $`2RR_{20}`$                             | 20           | 38           | 380          |
-| Estonia                   | $`4RR_{10}`$                             | 10           | 36           | 180          |
-| Faroe Islands             | $`3RR_{10}`$                             | 10           | 27           | 135          |
-| Finland                   | $`3RR_{12}`$                             | 12           | 33           | 198          |
-| France                    | $`2RR_{20}`$                             | 20           | 38           | 380          |
-| Macedonia                 | $`4RR_{10}`$                             | 10           | 36           | 180          |
-| Georgia                   | $`4RR_{10}`$                             | 10           | 36           | 180          |
-| Germany                   | $`2RR_{18}`$                             | 18           | 34           | 306          |
-| Greece                    | $`2RR_{16}`$                             | 16           | 30           | 240          |
-| Hungary                   | $`3RR_{12}`$                             | 12           | 33           | 198          |
-| Iceland                   | $`2RR_{12}`$                             | 12           | 22           | 132          |
-| Israel                    | $`2RR_{14} + (2RR_{6}^{1-6} / 2RR_{8}^{7-14})`$ | 14           | 36 / 40      | 268          |
-| Italy                     | $`2RR_{20}`$                             | 20           | 38           | 380          |
-| Kazakhstan                | $`2RR_{12} + (2RR_{6} / 2RR_{6})`$       | 12           | 32           | 192          |
-| Latvia                    | $`4RR_{8}`$                              | 8            | 28           | 112          |
-| Lithuania                 | $`4RR_{8}`$                              | 8            | 28           | 112          |
-| Luxembourg                | $`2RR_{14}`$                             | 14           | 26           | 182          |
-| Malta                     | $`2RR_{14}`$                             | 14           | 26           | 182          |
-| Moldova                   | $`4RR_{10}`$                             | 10           | 36           | 180          |
-| Montenegro                | $`4RR_{10}`$                             | 10           | 36           | 180          |
-| The Netherlands           | $`2RR_{18}`$                             | 18           | 34           | 306          |
-| Northern Ireland          | $`3RR_{12} + (2RR_{6} / 2RR_{6})`$       | 12           | 38           | 228          |
-| Norway                    | $`2RR_{16}`$                             | 16           | 30           | 240          |
-| Poland                    | $`2RR_{16} + (RR_{8} / RR_{8})`$         | 16           | 37           | 296          |
-| Portugal                  | $`2RR_{18}`$                             | 18           | 34           | 306          |
-| Republic of Ireland       | $`4RR_{10}`$                             | 10           | 36           | 180          |
-| Romania                   | $`\frac{1}{2} \cdot 2RR_{14} + (2RR_{8}^{1-6} / 2RR_{6}^{7-14})`$ | 14           | 36 / 40      | 212 / 238    |
-| Russia                    | $`2RR_{16}`$                             | 16           | 30           | 240          |
-| Scotland                  | $`3RR_{12} + (RR_{6} / RR_{6})`$         | 12           | 38           | 228          |
-| Serbia                    | $`\frac{1}{2} \cdot 2RR_{16} + (RR_{8} / RR_{8})`$ | 16           | 37           | 296          |
-| Slovakia                  | $`2RR_{12} + (2RR_{6} / 2RR_{6})`$       | 12           | 32           | 192          |
-| Slovenia                  | $`4RR_{10}`$                             | 10           | 36           | 180          |
-| Spain                     | $`2RR_{20}`$                             | 20           | 38           | 380          |
-| Sweden                    | $`2RR_{16}`$                             | 16           | 30           | 240          |
-| Switzerland               | $`4RR_{10}`$                             | 10           | 36           | 180          |
-| Turkey                    | $`2RR_{18}`$                             | 18           | 34           | 306          |
-| Ukraine                   | $`2RR_{12} + (2RR_{6} / 2RR_{6})`$       | 12           | 32           | 192          |
-| Wales                     | $`2RR_{12} + (2RR_{6} / 2RR_{6})`$       | 12           | 32           | 192          |
+### Tournament Metrics for Several Parameter Combinations
 
-
-### Tournament metrics for several parameter combinations
-
-Table below presents the detailed estimates of different tournament metrics considered in this study. 
-Each entry in the table corresponds to a different pair of parameters $`(\alpha, \sigma)`$ given in the rows and columns, respectively. 
-The table is organised in blocks. 
-Each block corresponds to nine tournament designs studied. **They are presented in the same order as given in Tab. \ref{LeaguesUnderStudy} -- 
+Table below presents the detailed estimates of different tournament metrics considered in this study.
+Each entry in the table corresponds to a different pair of parameters $`(\alpha, \sigma)`$ given in the rows and columns, respectively.
+The table is organised in blocks.
+Each block corresponds to nine tournament designs studied. **They are presented in the same order as given in Tab. \ref{LeaguesUnderStudy} --
 the last column gives the short name for the particular league design scheme.**
 
 We suggest that the significance of differences between different formats is compared based
@@ -207,16 +160,16 @@ on the confidence intervals resulting from the normal approximation. That is,
 the $1-\bar{\alpha}$ confidence interval for a sample of observations $`\mathbf{x} = (x_1, x_2, \dots, x_n)`$ is $`\bar{\mathbf{x}} \pm \frac{z_{1-\bar{\alpha}/2} \cdot sd(\mathbf{x})}{\sqrt{n}}`$,
 
 $`
-\left(\bar{\mathbf{x}} - \frac{z_{1-\bar{\alpha}/2} \cdot sd(\mathbf{x})}{\sqrt{n}}, 
+\left(\bar{\mathbf{x}} - \frac{z_{1-\bar{\alpha}/2} \cdot sd(\mathbf{x})}{\sqrt{n}},
 \bar{\mathbf{x}} + \frac{z_{1-\bar{\alpha}/2} \cdot sd(\mathbf{x})}{\sqrt{n}}\right),
 `$
 
-where $`z`$ denotes a given quantile of the standard normal distribution and 
+where $`z`$ denotes a given quantile of the standard normal distribution and
 $`\bar{\mathbf{x}}`$ and $`sd(\mathbf{x})`$ are the sample mean and the sample standard deviation, respectively.
-The width of this interval is $`\frac{2}{\sqrt{n}} z_{1-\bar{\alpha}/2} \cdot sd(\mathbf{x})`$. 
+The width of this interval is $`\frac{2}{\sqrt{n}} z_{1-\bar{\alpha}/2} \cdot sd(\mathbf{x})`$.
 Assuming the significance level of $`\bar{\alpha} = 0.05`$, we suggest the three given metrics
-considered -- Kendall's $\tau$, Spearman's Footrule distance and the fraction of the best team wins -- should be considered with error margins of ca. $`\pm 0.001`$, $`\pm 0.004`$ and $`\pm 0.003`$, respectively. 
-Accordingly, the metric values are rounded to the third decimal place. 
+considered -- Kendall's $\tau$, Spearman's Footrule distance and the fraction of the best team wins -- should be considered with error margins of ca. $`\pm 0.001`$, $`\pm 0.004`$ and $`\pm 0.003`$, respectively.
+Accordingly, the metric values are rounded to the third decimal place.
 These margins should be taken into account when considering the significance of differences between the reported numbers.
 
 |           |    <-     |  Kendall  |     ->    |     <-    |  Spearman |     ->    |     <-    | Best wins |    ->     |  Format   |
@@ -263,12 +216,12 @@ These margins should be taken into account when considering the significance of 
 |$`\infty`$ |0.247      |0.502      |0.637      |3.120      |2.166      |1.636      |0.208      |0.407      |0.532      |$`f`$      |
 
 
-### Schedules in two stage systems}
+### Schedules in Two Stage Systems
 
 Tables below give example schedules of the final round in the $`2RR + (1RR/1RR)`$ league format
-employed in the championship and the relegation group in the case of 12 and 16 teams, respectively. 
+employed in the championship and the relegation group in the case of 12 and 16 teams, respectively.
 The integer codes represent a team's rank after the first stage of the tournament.
-The schedule given in the second table was originally applied in the Polish league in the 2013/14 season. 
+The schedule given in the second table was originally applied in the Polish league in the 2013/14 season.
 The schedule given in the first table is its modification for 12 teams.
 Notably, according to these schedules, the top half teams after the initial stage of the
 competition play one more match at their home field than the bottom half. Moreover, the match
