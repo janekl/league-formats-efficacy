@@ -31,8 +31,9 @@ if(!require("stringi"))
 if(!require("skellam"))
   install.packages("skellam")
 
-################## EDIT THIS PART ##################
-# And the config.R file for setting general path to store results (`results_save_folder` variable)
+# -----------------------------------------------------------------------------
+# Parameters - specify settings in this code block and config.R file for setting 
+# general path to store results (`results_save_folder` variable)
 source("config.R")
 specific_result_folder <- "results_all"
 models <- "poisson_correlated" # c("olr", "poisson", "poisson_correlated")
@@ -47,7 +48,7 @@ league_formats <- c(
 #league_formats <- paste0(1:10, "RR") # Influence of additional round-robin rounds
 #league_formats <- paste0("scotland_full_", seq(1.5, 5, 0.5), "_", 1) # Special analysis for different point allocation
 #league_formats <- c("4RR") # Additinal test
-####################################################
+# -----------------------------------------------------------------------------
 
 dir.create(results_save_folder, recursive = T, showWarnings = F)
 dir.create(file.path(results_save_folder, "logs"), recursive = F, showWarnings = F)

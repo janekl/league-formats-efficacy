@@ -83,7 +83,7 @@ $ Rscript setup_simulations.R
 Additionally, you can edit the script and define the following:
 
 * the team rating model to use (`model` variable),
-* the league formats to analyse (`x` variable),
+* the league formats to analyse (`league_formats`),
 * directory for storing the results of a specific experiment
 (`specific_result_folder`).
 
