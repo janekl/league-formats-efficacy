@@ -14,7 +14,6 @@ steps to reproduce the main results and supplementary materials are outlined bel
 ```
 MatchPrediction
 ├── data
-│    ├── Poland{1415,1516}.csv               # Data from http://www.90minut.pl/
 │    ├── download_data.sh                    # Script for downloading data from http://www.football-data.co.uk/
 │    └── preprocessing_football_data_co_uk.R # For processing raw CSV files from http://www.football-data.co.uk/
 └── scripts
@@ -49,7 +48,6 @@ the following packages:
 * foreach_1.4.3
 * skellam_0.2.0
 * stringi_1.1.7
-* xtable_1.8-2
 
 Compatibility of the scripts for other versions of the aforementioned packages
 is not guaranteed.
@@ -65,7 +63,7 @@ for keeping data and saving the results. This depends on local platform
 settings. File contents should look like:
 
 ```R
-results_save_folder <- "where/you/want/to/store/data/and/results"
+results_save_folder <- "where/you/want/to/store/results"
 ```
 
 All the results will be saved in **results_save_folder**.
@@ -143,8 +141,8 @@ The first appendix consists of a listing of formats that are in
 operation in the UEFA countries in the 2017/2018 (or 2018) season.
 
 Click to download:
-[PDF](Appendix_League_Formats_in_UEFA.pdf) |
-[MARKDOWN](Appendix_League_Formats_in_UEFA.md)
+[PDF](appendix/League_Formats_in_UEFA.pdf) |
+[MARKDOWN](appendix/League_Formats_in_UEFA.md)
 
 
 ### Tournament Metrics for Several Parameter Combinations
@@ -153,8 +151,8 @@ The second appendix gives the detailed estimates of different tournament
 metrics considered in our study.
 
 Click to download:
-[PDF](Appendix_Tournament_Metrics.pdf) |
-[MARKDOWN](Appendix_Tournament_Metrics.md)
+[PDF](appendix/Tournament_Metrics.pdf) |
+[MARKDOWN](appendix/Tournament_Metrics.md)
 
 
 ### Schedules in Two Stage Systems
@@ -164,5 +162,5 @@ employed in the championship and the relegation group in the case of 12 and 16
 teams are listed in the third appendix.
 
 Click to download:
-[PDF](Appendix_Schedules_in_Two_Stage_Systems.pdf) |
-[MARKDOWN](Appendix_Schedules_in_Two_Stage_Systems.md)
+[PDF](appendix/Schedules_in_Two_Stage_Systems.pdf) |
+[MARKDOWN](appendix/Schedules_in_Two_Stage_Systems.md)
