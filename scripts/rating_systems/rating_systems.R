@@ -24,6 +24,7 @@
 # Functions for estimating different rating systems and generating predictions
 
 library("skellam")
+library("MASS")
 
 logistic <- function(x){
   return (1/(1 + exp(-x)))

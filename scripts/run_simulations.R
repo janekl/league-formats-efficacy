@@ -1,3 +1,26 @@
+## MIT License
+## 
+## Copyright (c) 2018 Jan Lasek
+## 
+## Permission is hereby granted, free of charge, to any person obtaining a copy
+## of this software and associated documentation files (the "Software"), to deal
+## in the Software without restriction, including without limitation the rights
+## to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+## copies of the Software, and to permit persons to whom the Software is
+## furnished to do so, subject to the following conditions:
+##   
+## The above copyright notice and this permission notice shall be included in all
+## copies or substantial portions of the Software.
+## 
+## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+## IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+## FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+## AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+## LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+## OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+## SOFTWARE.
+## -----------------------------------------------------------------------------
+
 library("doMC")
 library("stringi")
 source("league_formats.R")
@@ -7,23 +30,6 @@ source("config.R")
 source("rating_systems/rating_systems.R")
 source("schedule_functions.R")
 
-# CLI:
 simulation_params <- parse_cl_arguments(commandArgs(trailingOnly = TRUE))
 simulation_params[["results_save_folder"]] <- results_save_folder
-# Hack [error prone]: Change specific_result_folder dump folder based on the drift_option parameter:
-#simulation_params[["specific_result_folder"]] <- ifelse(simulation_params[["drift_option"]] == "fixed", "results_104_fixed_xeon01", "results_104_float_xeon01")
-#print(simulation_params)
 do.call(run_simulations, simulation_params)
-
-# ------------------------------------------------------------------------
-# DEBUG (interactive in RStudio)
-# n_cores <- 1
-# n_sim <- 10^2 # How to choose this number?
-# simulation_params <- list("n" = 16, "model" = "poisson_correlated",
-#                          "n_sim" = n_sim, "shape" = 2,
-#                          "sigma" = 0.5, "n_cores" = 1, "log2file" = F,
-#                          "results_save_folder" = results_save_folder)
-# simulation_params[["results_save_folder"]] <- results_save_folder
-# simulation_params[["specific_result_folder"]] <- specific_result_folder
-# 
-# do.call(run_simulations, simulation_params)

@@ -43,11 +43,12 @@ The project was developed in [R](https://www.r-project.org/) using
 the following packages:
 
 * doMC_1.3.5
-* dplyr_0.5.0
 * iterators_1.0.8
 * foreach_1.4.3
-* skellam_0.2.0
+* dplyr_0.5.0
 * stringi_1.1.7
+* skellam_0.2.0
+* MASS_7.3-45
 
 Compatibility of the scripts for other versions of the aforementioned packages
 is not guaranteed.
@@ -67,14 +68,13 @@ results_save_folder <- "where/you/want/to/store/simulation/results"
 ```
 
 All the results will be saved in **results_save_folder**.
-This is also the default path for storing data.
 
 
 
 ### Step 2
 
-Second, to install necessary libraries and setup the
-output data folders, run:
+Second, to install necessary libraries and setup 
+the output data folders, run:
 
 ```
 $ Rscript setup_simulations.R
@@ -103,16 +103,24 @@ $ ./run_all.sh
 
 Alternatively, to produce the results for a given parameter setup, run:
 ```
-$ Rscript run_simulations.R --n=16 --model=poisson_correlated --n_sim=100 --shape=20 --sigma=0.3 --n_cores=3 --log2file=1
+$ Rscript run_simulations.R --n=12 --model=poisson_correlated --n_sim=100 --shape=20 --sigma=0.3 --n_cores=3 --specific_result_folder=results_all --log2file=1
 ```
 
 with appropriate parameters (please consult the script). These operations
 are performed for a parameters grid in the **run_all.sh** script. The results
-will be saved in the **data** folder with appropriate paths as
-specified in the **config.R** and **setup_simulations.R** scripts.
+will be saved in the folder specified in the **config.R** script.
 
-Results are saved to **/mnt/ml-team/experiments/Leagues**
-and their backup copy is at **ml100:~/Leagues/results_backup** (29-01-2018).
+### Step 4
+
+Finally, for measuring the agreement between the final league standings 
+and latent team strength parameters, execute:
+
+```
+$ Rscript evaluate_simulations.R
+```
+
+This produces a *csv* file with results in the respective folder.
+
 
 ## Reproducing Intermediate Results
 
