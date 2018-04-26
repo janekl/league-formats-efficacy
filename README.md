@@ -63,7 +63,7 @@ for keeping data and saving the results. This depends on local platform
 settings. File contents should look like:
 
 ```R
-results_save_folder <- "where/you/want/to/store/results"
+results_save_folder <- "where/you/want/to/store/simulation/results"
 ```
 
 All the results will be saved in **results_save_folder**.
@@ -116,22 +116,22 @@ and their backup copy is at **ml100:~/Leagues/results_backup** (29-01-2018).
 
 ## Reproducing Intermediate Results
 
-### Parameter Setting for the Model
+### Rating Systems Performance
 
-This is specified in the **scripts/rating_systems/parameter_setting_for_paper.sh**
-script. Make sure to set ρ=0.45 (or as desired) for the
-correlated Poisson model in the **rating_systems/prediction_functions.R**
-script. To reproduce results, run
+In order to generate and evaluate the predictions of different rating systems 
+first download data from http://www.football-data.co.uk/.
+There is script **data/download_data.sh** to assist you with it.
+
+The correlation parameter is set to ρ=0.45 (or as desired) for 
+the correlated Poisson model in the **scripts/rating_systems/prediction_functions.R** script. 
+To reproduce results, go to **scripts/rating_systems** and run
 
 ```
-$ ./parameter_setting_for_paper.sh
+$ Rscript optimize_models.R
 ```
-
-in the appropriate folder. The results will be saved in the **results/** folder.
-For a complete set of tables, parameters, results and a comparison
-with the odds model, consult **prediction_results_report.R**
-(interactively in, e.g., RStudio). You will need to transfer the estimates
-for the λ there.
+The script runs grid search for regularization parameter λ for different models 
+and a league season of choice (this can be specified directly in the script) and 
+saves some logs and results into **results** folder in the same directory.
 
 ## Appendices
 
