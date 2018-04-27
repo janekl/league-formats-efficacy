@@ -12,20 +12,15 @@ steps to reproduce the main results and supplementary materials are outlined bel
 ## Contents
 
 ```
-MatchPrediction
+league-formats-efficacy
 ├── data
-│    ├── download_data.sh                    # Script for downloading data from http://www.football-data.co.uk/
-│    └── preprocessing_football_data_co_uk.R # For processing raw CSV files from http://www.football-data.co.uk/
+│    ├── download_data.sh # Script for downloading data from http://www.football-data.co.uk/
+│    └── preprocessing_football_data_co_uk.R
 └── scripts
      ├── config.R
      ├── setup_simulations.R
      ├── run_simulations.R
-     ├── run_all_final_104.sh                # 10^4 simulations for all settings for Poisson correlated model
-     ├── run_all_final_105.sh                # 10^5 simulations for chosen (most important for analysis) settings
-     ├── run_all_olr.sh                      # Simulations for OLR model
-     ├── run_all_poisson.sh                  # Base Poisson model
-     ├── run_simulations_krr.sh              # Round impact in the kRR tournament
-     ├── run_simulations_scotland_points_allocation.sh # Points allocations
+     ├── run_all.sh # Simulations for all settings
      ├── schedule_functions.R
      ├── simulation_functions.R
      ├── evaluation_functions.R
@@ -129,6 +124,13 @@ This produces a *csv* file with results in the respective folder.
 In order to generate and evaluate the predictions of different rating systems 
 first download data from http://www.football-data.co.uk/.
 There is script **data/download_data.sh** to assist you with it.
+The data need to be first preprocessed by running
+
+```
+$ Rscript preprocessing_football_data_co_uk.R
+```
+
+in the **data** folder.
 
 The correlation parameter is set to ρ=0.45 (or as desired) for 
 the correlated Poisson model in the **scripts/rating_systems/prediction_functions.R** script. 
