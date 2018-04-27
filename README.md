@@ -16,20 +16,21 @@ league-formats-efficacy
 ├── data
 │    ├── download_data.sh # Script for downloading data from http://www.football-data.co.uk/
 │    └── preprocessing_football_data_co_uk.R
-└── scripts
-     ├── config.R
-     ├── setup_simulations.R
-     ├── run_simulations.R
-     ├── run_all.sh # Simulations for all settings
-     ├── schedule_functions.R
-     ├── simulation_functions.R
-     ├── evaluation_functions.R
-     ├── extra_functions.R
-     ├── evaluate_simulations.R
-     └── rating_systems
-          ├── rating_systems.R
-          ├── prediction_functions.R
-          └── optimise_models.R
+├── scripts
+│    ├── config.R
+│    ├── setup_simulations.R
+│    ├── run_simulations.R
+│    ├── run_all.sh # Simulations for all settings
+│    ├── schedule_functions.R
+│    ├── simulation_functions.R
+│    ├── evaluation_functions.R
+│    ├── extra_functions.R
+│    ├── evaluate_simulations.R
+│    └── rating_systems
+│         ├── rating_systems.R
+│         ├── prediction_functions.R
+│         └── optimise_models.R
+└── appendix
 ```
 
 ### Requirements
