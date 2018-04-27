@@ -17,7 +17,7 @@ league-formats-efficacy
 │    ├── download_data.sh # Script for downloading data from http://www.football-data.co.uk/
 │    └── preprocessing_football_data_co_uk.R
 ├── scripts
-│    ├── config.R
+│    ├── config.R # It should be defined locally
 │    ├── setup_simulations.R
 │    ├── run_simulations.R
 │    ├── run_all.sh # Simulations for all settings
