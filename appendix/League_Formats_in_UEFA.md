@@ -25,7 +25,7 @@ In both subgroups, another $2RR$ tournament is played (with six teams each). Hen
 matches are played in total.
 
 There are two countries missing in the comparison. In Liechtenstein, no domestic championship is played
-(some teams compete in Switzerland), only domestic cup is played. In San Marino, there are 15 teams
+(some teams compete in Switzerland), only a domestic cup is played. In San Marino, there are 15 teams
 and league starts with two groups (7 and 8 teams each) in which $3RR$ is played. Following that, a double
 elimination tournament is played to determine the champion.
 

@@ -28,7 +28,7 @@ $$
 where $z$ denotes a given quantile of the standard normal distribution and
 $\bar{\mathbf{x}}$ and $sd(\mathbf{x})$ are the sample mean and the sample standard deviation, respectively.
 The width of this interval is $\frac{2}{\sqrt{n}} z_{1-\bar{\alpha}/2} \cdot sd(\mathbf{x})$.
-Assuming the significance level of $\bar{\alpha} = 0.05$, we suggest the three given metrics
+Assuming the significance level of $\bar{\alpha} = 0.05$ and running 100,000 simulations, the three given metrics
 considered -- Kendall's $\tau$, Spearman's Footrule distance and the fraction
 of the best team wins -- should be considered with error margins of
 ca.\ $\pm 0.001$, $\pm 0.004$ and $\pm 0.003$, respectively.
