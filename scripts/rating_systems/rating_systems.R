@@ -30,7 +30,7 @@ logistic <- function(x){
   return (1/(1 + exp(-x)))
 }
 
-estimate_olr_regularized <- function(games, teams, lambda, alpha, newcomers = c()) {
+estimate_olr_regularized <- function(games, teams, lambda, alpha) {
   which_home <- which(games[,"result"] == 1)
   which_draw <- which(games[,"result"] == 0)
   which_away <- which(games[,"result"] == -1)
