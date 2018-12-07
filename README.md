@@ -2,10 +2,10 @@
 
 This repository contains the code used for the analysis of football data
 in the paper *The efficacy of league formats in ranking teams*
-(submitted to the special issue on sports analytics in
-*Statistical Modelling Journal*) by [Jan Lasek](http://lasek.rexamine.com)
+that appeared in the [special issue on sports analytics in
+*Statistical Modelling Journal](https://journals.sagepub.com/doi/abs/10.1177/1471082X18798426)*) by [Jan Lasek](http://lasek.rexamine.com)
 and [Marek Gagolewski](http://gagolewski.com/).
-The efficacy of a given league format is understood as the accuracy to
+The efficacy of a given league format is defined as the accuracy to
 reproduce the true ranking of competing teams. The content of this repository,
 steps to reproduce the main results and supplementary materials are outlined below.
 
@@ -31,6 +31,9 @@ league-formats-efficacy
 │         ├── prediction_functions.R
 │         └── optimise_models.R
 └── appendix
+     ├── League_Formats_in_UEFA(.md|.pdf)
+     ├── Schedules_in_Two_Stage_Systems(.md|.pdf)
+     └── Tournament_Metrics(.md|.pdf)
 ```
 
 ### Requirements
